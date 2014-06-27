@@ -1,0 +1,6 @@
+{
+    "mongoUrl": "",
+    "port": "",
+    "sessionSecret": "",
+    "sessionMaxAge": ""
+}
