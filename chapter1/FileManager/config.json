@@ -1,6 +1,6 @@
 {
-    "mongoUrl": "",
-    "port": "",
-    "sessionSecret": "",
-    "sessionMaxAge": ""
+    "mongoUrl": "mongodb://<dbuser>:<dbpassword>@ds037447.mongolab.com:37447/filestore",
+    "port": "3000",
+    "sessionSecret": "random chars here",
+    "sessionMaxAge": 3600000
 }

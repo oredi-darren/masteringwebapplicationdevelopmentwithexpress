@@ -5,6 +5,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var flash = require('connect-flash');
+var multiparty = require('connect-multiparty');
+var mongoose = require('mongoose');
+var mongodbUri = require('mongodb-uri');
+var config = require('./config.json');
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -18,7 +24,10 @@ app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(cookieParser());
+app.use(cookieParser(config.sessionSecret, {
+    maxAge: config.sessionMaxAge
+}));
+app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
@@ -55,5 +64,23 @@ app.use(function(err, req, res, next) {
     });
 });
 
+var options = {
+    server: {
+        socketOptions: {
+            keepAlive: 1,
+            connectTimeoutMS: 30000
+        }
+    }
+};
 
+var mongooseUri = mongodbUri.formatMongoose(config.mongoUrl);
+
+mongoose.connect(mongooseUri, options, function (err) {
+    if (err) {
+        console.error('database connection failure: \n' + err.stack);
+        process.exit(1);
+    }
+});
+
+app.set('port', process.env.PORT || config.port);
 module.exports = app;
