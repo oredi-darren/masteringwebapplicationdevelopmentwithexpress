@@ -7,8 +7,6 @@ module.exports = function(config) {
     var bodyParser = require('body-parser');
 
     var flash = require('connect-flash');
-    var multiparty = require('connect-multiparty');
-
     var routes = require('./routes/index');
 
     var app = express();
