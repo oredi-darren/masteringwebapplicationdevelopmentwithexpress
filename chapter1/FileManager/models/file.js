@@ -63,8 +63,8 @@ File.getUserPath = function(userId) {
 };
 
 // create a folder if it doesn't exist already
-File.createFOlder = function (userId, callback) {
-    var userPath = FIle.getUserPath(userId);
+File.createFolder = function (userId, callback) {
+    var userPath = File.getUserPath(userId);
 
     fs.exists(userPath, function(exists) {
         if(!exists) {
